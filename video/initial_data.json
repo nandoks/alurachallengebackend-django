@@ -1,0 +1,29 @@
+[
+  {
+    "model": "video.video",
+    "pk": 1,
+    "fields": {
+      "titulo": "API com Django 3: Django Rest Framework",
+      "descricao": "Curso de primeiros passos com API REST em django",
+      "url": "https://cursos.alura.com.br/course/api-django-3-rest-framework"
+    }
+  },
+  {
+    "model": "video.video",
+    "pk": 2,
+    "fields": {
+      "titulo": "React: Ciclo de vida dos componentes",
+      "descricao": "Curso intermerdiário de React",
+      "url": "https://cursos.alura.com.br/course/react-ciclo-de-vida"
+    }
+  },
+  {
+    "model": "video.video",
+    "pk": 3,
+    "fields": {
+      "titulo": "Agilidade e TDD: Um dia no desenvolvimento de software",
+      "descricao": "Curso sobre agilidade e TDD, o dia a dia do desenvolvedor de software",
+      "url": "https://cursos.alura.com.br/course/agilidade-tdd-desenvolvimento-software"
+    }
+  }
+]
