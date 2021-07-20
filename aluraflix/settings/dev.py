@@ -12,6 +12,11 @@ environ.Env.read_env()
 
 DATABASES = {
     'default': {
+        # sqlite3 configuration
+        # 'ENGINE': 'django.db.backends.sqlite3'
+        # 'NAME': os.path.join(BASE_DIR, 'aluraflix')
+
+        # docker postgres configuration
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'postgres',
         'USER': 'postgres',
