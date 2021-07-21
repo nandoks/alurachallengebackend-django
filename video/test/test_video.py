@@ -10,18 +10,18 @@ class VideoTestCase(APITestCase):
     def setUp(self):
         self.list_url = reverse('Videos-list')
         self.video_1 = Video(
-            titulo="Boas práticas no Django 3: apps, pastas e paginação",
-            descricao="Paginação com Django",
+            title="Boas práticas no Django 3: apps, pastas e paginação",
+            description="Paginação com Django",
             url="https://cursos.alura.com.br/course/django-2-boas-praticas"
         )
         self.video_2 = Video(
-            titulo="API com Django 3: Aprofundando em testes e documentação",
-            descricao="API test com django",
+            title="API com Django 3: Aprofundando em testes e documentação",
+            description="API test com django",
             url="https://cursos.alura.com.br/course/api-django-3-testes-documentacao"
         )
         self.video_3 = Video(
-            titulo="API com Django 3: Aprofundando em testes e documentação",
-            descricao="API test com django",
+            title="API com Django 3: Aprofundando em testes e documentação",
+            description="API test com django",
             url="https://cursos.alura.com.br/course/api-django-3-testes-documentacao"
         )
         self.video_1.save()
@@ -36,8 +36,8 @@ class VideoTestCase(APITestCase):
     def test_put_request_for_updating_a_video(self):
         """Test if UPDATE resquest is updating a video"""
         response = self.client.put(f'/videos/{self.video_1.id}', data={
-            'titulo': 'Boas práticas no Django 3: apps, pastas e paginação',
-            'descricao': 'Paginação com Django atualizado',
+            'title': 'Boas práticas no Django 3: apps, pastas e paginação',
+            'description': 'Paginação com Django atualizado',
             'url': 'https://cursos.alura.com.br/course/django-2-boas-praticas'
         }, follow=True)
 
@@ -52,8 +52,8 @@ class VideoTestCase(APITestCase):
     def test_post_request_for_creating_a_video_total_should_be_4(self):
         """Test if POST request is creating a video"""
         data = {
-            'titulo': 'API com Django 3: Versionamento, cabeçalhos e CORS',
-            'descricao': 'API com django 3, aprofundando o conhecimento',
+            'title': 'API com Django 3: Versionamento, cabeçalhos e CORS',
+            'description': 'API com django 3, aprofundando o conhecimento',
             'url': 'https://cursos.alura.com.br/course/api-django-3-versionamento-cabecalhos-cors'
         }
         response = self.client.post(self.list_url, data)

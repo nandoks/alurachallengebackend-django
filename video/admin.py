@@ -5,8 +5,8 @@ from video.models import Video
 
 
 class Videos(admin.ModelAdmin):
-    list_display = ['id', 'titulo', 'descricao', 'url']
-    list_display_links = ['id', 'titulo']
+    list_display = ['id', 'title', 'description', 'url']
+    list_display_links = ['id', 'title']
     list_per_page = 15
 
 
