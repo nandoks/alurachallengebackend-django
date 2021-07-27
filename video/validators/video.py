@@ -1,5 +1,6 @@
-def validate_titulo(title):
+def validate_title(title):
     return len(title) >= 5
 
+
 def validate_description(description):
-    pass
+    return len(description) >= 10

@@ -1,0 +1,10 @@
+[
+  {
+    "model": "video.category",
+    "pk": 1,
+    "fields": {
+      "title": "LIVRE",
+      "color": "#959595"
+    }
+  }
+]
