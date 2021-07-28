@@ -12,22 +12,20 @@ class CategoryTestCase(APITestCase):
     def setUpTestData(cls):
         category = CategoryFactory()
         category2 = CategoryFactory()
-        category.save()
-        category2.save()
+
 
     def setUp(self):
         self.url = reverse('Categories-list')
 
 
-
-    def test_get_request_for_listing_categories_total_should_be_2(self):
+    def test_get_request_for_listing_categories_total_should_be_2_and_return_200(self):
         """Tests if get request is working"""
 
         response = self.client.get(self.url)
         self.assertEquals(len(response.data), 2)
         self.assertEquals(response.status_code, status.HTTP_200_OK)
 
-    def test_post_request_creates_a_category(self):
+    def test_post_request_creates_a_category_and_returns_201(self):
         """Tests if post request is working"""
         response = self.client.post(self.url, data={
             'title': 'test 123 12345',
@@ -35,7 +33,7 @@ class CategoryTestCase(APITestCase):
         })
         self.assertEquals(response.status_code, status.HTTP_201_CREATED)
 
-    def test_put_request_updates_a_video(self):
+    def test_put_request_updates_a_category_and_returns_200(self):
         """Tests if update request is working"""
         response = self.client.put("/categories/" + str(Category.objects.last().id), data={
             'title': 'API',
@@ -43,10 +41,17 @@ class CategoryTestCase(APITestCase):
         }, follow=True)
         self.assertEquals(response.status_code, status.HTTP_200_OK)
 
-    def test_delete_request_delete_a_video(self):
+    def test_delete_request_returns_200_on_existing_category(self):
         """Tests if delete request is working"""
-        response = self.client.delete("/categories/" + str(Category.objects.last().id), follow=True)
+        response = self.client.delete("/categories/1/")
         self.assertEquals(response.status_code, status.HTTP_200_OK)
+        self.assertEquals(response.data['detail'], 'Category successfuly deleted')
+
+    def test_delete_request_returns_404_if_category_do_not_exists(self):
+        """Tests if delete request is working"""
+        response = self.client.delete("/categories/99/")
+        self.assertEquals(response.status_code, status.HTTP_404_NOT_FOUND)
+        self.assertEquals(response.data['detail'], 'Category not found')
 
 
     def test_color_not_hex_color_must_return_400(self):

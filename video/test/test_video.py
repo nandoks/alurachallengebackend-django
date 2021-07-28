@@ -14,20 +14,9 @@ class VideoTestCase(APITestCase):
         video = VideoFactory()
         video2 = VideoFactory()
         video3 = VideoFactory()
-        category.save()
-        video.save()
-        video2.save()
-        video3.save()
 
     def setUp(self):
         self.url = reverse('Videos-list')
-
-
-    # def tearDown(self):
-    #     self.category.delete()
-    #     self.video.delete()
-    #     self.video2.delete()
-    #     self.video3.delete()
 
 
     def test_title_cannot_have_less_than_5_characters(self):
@@ -111,14 +100,13 @@ class VideoTestCase(APITestCase):
         self.assertEquals(response.status_code, status.HTTP_201_CREATED)
         self.assertEquals(Video.objects.count(), 4)
 
-    def test_put_request_for_updating_a_video(self):
+    def test_put_request_for_updating_a_video_with_valid_values(self):
         """Test if UPDATE resquest is updating a video"""
         response = self.client.put(f'/videos/1/', data={
             'title': 'Boas práticas no Django 3: apps, pastas e paginação',
             'description': 'Paginação com Django atualizado',
             'url': 'https://cursos.alura.com.br/course/django-2-boas-praticas'
         }, follow=True)
-
         self.assertEquals(response.status_code, status.HTTP_200_OK)
 
     def test_get_request_for_listing_videos_total_should_be_3(self):
@@ -141,5 +129,23 @@ class VideoTestCase(APITestCase):
     def test_delete_request_for_deleting_a_video_total_should_be_2(self):
         """Test if DELETE resquest is deleting a video"""
         response = self.client.delete('/videos/1/')
-        self.assertEquals(response.status_code, status.HTTP_204_NO_CONTENT)
+        self.assertEquals(response.data['detail'], 'Vídeo successfuly deleted')
+        self.assertEquals(response.status_code, status.HTTP_200_OK)
         self.assertEquals(Video.objects.count(), 2)
+
+    def test_delete_error_if_video_doesnt_exists(self):
+        response = self.client.delete('/videos/99/')
+        self.assertEquals(response.status_code, status.HTTP_404_NOT_FOUND)
+        self.assertEquals(response.data['detail'], 'Vídeo not found')
+        self.assertEquals(Video.objects.count(), 3)
+
+
+    # def test_path_request_must_updates_a_video_with_valid_values(self):
+    #     """Test if PATCH request updates a video"""
+    #     response = self.client.patch('/videos/2/', data={
+    #         'title': 'Paginação com Django atualizado',
+    #     }, follow=True)
+    #
+    #     video = Video.objects.get(pk=1)
+    #     self.assertEquals(response.status_code, status.HTTP_200_OK)
+    #     self.assertEquals(video.description, 'Paginação com Django atualizado')
