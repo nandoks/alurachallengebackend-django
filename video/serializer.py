@@ -4,6 +4,7 @@ from video.models import Video, Category
 from video.validators.video import validate_title, validate_description
 from video.validators.category import validate_hexadecimal
 
+
 class VideoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Video

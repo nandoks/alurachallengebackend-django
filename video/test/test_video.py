@@ -3,37 +3,32 @@ from rest_framework import status
 from rest_framework.test import APITestCase
 
 from video.models import Video, Category
+from video.test.factories import VideoFactory, CategoryFactory
 
 
 class VideoTestCase(APITestCase):
 
+    @classmethod
+    def setUpTestData(cls):
+        category = CategoryFactory()
+        video = VideoFactory()
+        video2 = VideoFactory()
+        video3 = VideoFactory()
+        category.save()
+        video.save()
+        video2.save()
+        video3.save()
+
     def setUp(self):
-        self.list_url = reverse('Videos-list')
-        self.video_1 = Video(
-            title="Boas práticas no Django 3: apps, pastas e paginação",
-            description="Paginação com Django",
-            url="https://cursos.alura.com.br/course/django-2-boas-praticas"
-        )
+        self.url = reverse('Videos-list')
 
-        self.video_2 = Video(
-            title="API com Django 3: Aprofundando em testes e documentação",
-            description="API test com django",
-            url="https://cursos.alura.com.br/course/api-django-3-testes-documentacao"
-        )
 
-        self.video_3 = Video(
-            title="API com Django 3: Aprofundando em testes e documentação",
-            description="API test com django",
-            url="https://cursos.alura.com.br/course/api-django-3-testes-documentacao"
-        )
-        self.video_1.save()
-        self.video_2.save()
-        self.video_3.save()
+    # def tearDown(self):
+    #     self.category.delete()
+    #     self.video.delete()
+    #     self.video2.delete()
+    #     self.video3.delete()
 
-    def tearDown(self):
-        self.video_1.delete()
-        self.video_2.delete()
-        self.video_3.delete()
 
     def test_title_cannot_have_less_than_5_characters(self):
         """Test if title cannot have less than 5 characters"""
@@ -42,7 +37,7 @@ class VideoTestCase(APITestCase):
             'description': 'API com django 3, aprofundando o conhecimento',
             'url': 'https://cursos.alura.com.br/course/api-django-3-versionamento-cabecalhos-cors'
         }
-        response = self.client.post(self.list_url, data=data)
+        response = self.client.post(self.url, data=data)
         self.assertLess(len(data['title']), 5)
         self.assertEquals(response.status_code, status.HTTP_400_BAD_REQUEST)
         self.assertEquals(Video.objects.count(), 3)
@@ -54,7 +49,7 @@ class VideoTestCase(APITestCase):
             'description': 'API com django 3, aprofundando o conhecimento',
             'url': 'https://cursos.alura.com.br/course/api-django-3-versionamento-cabecalhos-cors'
         }
-        response = self.client.post(self.list_url, data=data)
+        response = self.client.post(self.url, data=data)
         self.assertGreaterEqual(len(data['title']), 5)
         self.assertEquals(response.status_code, status.HTTP_201_CREATED)
         self.assertEquals(Video.objects.count(), 4)
@@ -66,8 +61,7 @@ class VideoTestCase(APITestCase):
             'description': 'five+',
             'url': 'https://cursos.alura.com.br/course/api-django-3-versionamento-cabecalhos-cors'
         }
-
-        response = self.client.post(self.list_url, data=data)
+        response = self.client.post(self.url, data=data)
         self.assertLess(len(data['description']), 10)
         self.assertEquals(response.status_code, status.HTTP_400_BAD_REQUEST)
         self.assertEquals(Video.objects.count(), 3)
@@ -79,7 +73,7 @@ class VideoTestCase(APITestCase):
             'description': 'ten letters',
             'url': 'https://cursos.alura.com.br/course/api-django-3-versionamento-cabecalhos-cors'
         }
-        response = self.client.post(self.list_url, data=data)
+        response = self.client.post(self.url, data=data)
         self.assertGreaterEqual(len(data['description']), 10)
         self.assertEquals(response.status_code, status.HTTP_201_CREATED)
         self.assertEquals(Video.objects.count(), 4)
@@ -91,14 +85,61 @@ class VideoTestCase(APITestCase):
             'description': 'ten letters',
             'url': 'NoHttpAndNoDotSomething'
         }
-        response = self.client.post(self.list_url, data=data)
+        response = self.client.post(self.url, data=data)
         self.assertEquals(response.status_code, status.HTTP_400_BAD_REQUEST)
         data['url'] = 'http://NoHttpAndNoDotSomething'
-        response = self.client.post(self.list_url, data=data)
+        response = self.client.post(self.url, data=data)
         self.assertEquals(response.status_code, status.HTTP_400_BAD_REQUEST)
         data['url'] = 'NoHttpAndNoDotSomething.com'
-        response = self.client.post(self.list_url, data=data)
+        response = self.client.post(self.url, data=data)
         self.assertEquals(response.status_code, status.HTTP_400_BAD_REQUEST)
         data['url'] = 'http://NoHttpAndNoDotSomething.com'
-        response = self.client.post(self.list_url, data=data)
+        response = self.client.post(self.url, data=data)
         self.assertEquals(response.status_code, status.HTTP_201_CREATED)
+
+    def test_video_must_have_a_category(self):
+        """Test if creating a video adds category 1 if no category is passed"""
+        data = {
+            'title': 'API com Django 3: Versionamento, cabeçalhos e CORS',
+            'description': 'API com django 3, aprofundando o conhecimento',
+            'url': 'https://cursos.alura.com.br/course/api-django-3-versionamento-cabecalhos-cors'
+        }
+        response = self.client.post(self.url, data)
+        video = Video.objects.last()
+        self.assertEquals(video.category.id, 1)
+        self.assertEquals(video.category.title, 'LIVRE')
+        self.assertEquals(response.status_code, status.HTTP_201_CREATED)
+        self.assertEquals(Video.objects.count(), 4)
+
+    def test_put_request_for_updating_a_video(self):
+        """Test if UPDATE resquest is updating a video"""
+        response = self.client.put(f'/videos/1/', data={
+            'title': 'Boas práticas no Django 3: apps, pastas e paginação',
+            'description': 'Paginação com Django atualizado',
+            'url': 'https://cursos.alura.com.br/course/django-2-boas-praticas'
+        }, follow=True)
+
+        self.assertEquals(response.status_code, status.HTTP_200_OK)
+
+    def test_get_request_for_listing_videos_total_should_be_3(self):
+        """Test if GET request is returning a list of videos"""
+        response = self.client.get(self.url)
+        self.assertEquals(response.status_code, status.HTTP_200_OK)
+        self.assertEquals(Video.objects.count(), 3)
+
+    def test_post_request_for_creating_a_video_total_should_be_4(self):
+        """Test if POST request is creating a video"""
+        data = {
+            'title': 'API com Django 3: Versionamento, cabeçalhos e CORS',
+            'description': 'API com django 3, aprofundando o conhecimento',
+            'url': 'https://cursos.alura.com.br/course/api-django-3-versionamento-cabecalhos-cors'
+        }
+        response = self.client.post(self.url, data)
+        self.assertEquals(response.status_code, status.HTTP_201_CREATED)
+        self.assertEquals(Video.objects.count(), 4)
+
+    def test_delete_request_for_deleting_a_video_total_should_be_2(self):
+        """Test if DELETE resquest is deleting a video"""
+        response = self.client.delete('/videos/1/')
+        self.assertEquals(response.status_code, status.HTTP_204_NO_CONTENT)
+        self.assertEquals(Video.objects.count(), 2)
