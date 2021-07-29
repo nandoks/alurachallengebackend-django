@@ -2,7 +2,6 @@ from django.urls import reverse
 from rest_framework import status
 from rest_framework.test import APITestCase
 
-from video.models import Category
 from video.test.factories import CategoryFactory
 
 
@@ -35,7 +34,7 @@ class CategoryTestCase(APITestCase):
 
     def test_put_request_updates_a_category_and_returns_200(self):
         """Tests if update request is working"""
-        response = self.client.put("/categories/" + str(Category.objects.last().id), data={
+        response = self.client.put("/categories/2/", data={
             'title': 'API',
             'color': '#987654',
         }, follow=True)
@@ -69,3 +68,9 @@ class CategoryTestCase(APITestCase):
             'color': '#123456',
         })
         self.assertEquals(response.status_code, status.HTTP_201_CREATED)
+
+    def test_get_by_invalid_id_returns_error_message_and_404(self):
+        """Tests if invalid id returns error message and 404"""
+        response = self.client.get('/categories/99/')
+        self.assertEquals(response.status_code, status.HTTP_404_NOT_FOUND)
+        self.assertEquals(response.data['detail'], 'Category not found')

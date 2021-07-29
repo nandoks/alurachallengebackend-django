@@ -115,6 +115,13 @@ class VideoTestCase(APITestCase):
         self.assertEquals(response.status_code, status.HTTP_200_OK)
         self.assertEquals(Video.objects.count(), 3)
 
+    def test_get_by_invalid_pk_returns_message_and_404(self):
+        """Tests if invalid id returns error message and 404"""
+        response = self.client.get('/videos/99/')
+        self.assertEquals(response.status_code, status.HTTP_404_NOT_FOUND)
+        self.assertEquals(response.data['detail'], 'Video not found')
+
+
     def test_post_request_for_creating_a_video_total_should_be_4(self):
         """Test if POST request is creating a video"""
         data = {
