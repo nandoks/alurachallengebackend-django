@@ -8,7 +8,7 @@ from video.validators.category import validate_hexadecimal
 class VideoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Video
-        fields = '__all__'
+        fields = ['id', 'category_id', 'title', 'description', 'url']
 
     def validate(self, data):
         if not validate_title(data['title']):
@@ -21,9 +21,15 @@ class VideoSerializer(serializers.ModelSerializer):
 class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Category
-        fields = '__all__'
+        fields = ['id', 'title', 'color']
 
     def validate(self, data):
         if not validate_hexadecimal(data['color']):
             raise serializers.ValidationError({"color": "Color must be a hexadecimal value e.g. #959595 "})
         return data
+
+
+class ListVideosByCategorySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Video
+        fields = ['id', 'category_id', 'title', 'description', 'url']

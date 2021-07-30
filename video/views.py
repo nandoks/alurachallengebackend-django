@@ -1,7 +1,7 @@
-from rest_framework import viewsets, status
+from rest_framework import viewsets, status, generics, filters
 from rest_framework.response import Response
 
-from video.serializer import VideoSerializer, CategorySerializer
+from video.serializer import VideoSerializer, CategorySerializer, ListVideosByCategorySerializer
 from video.models import Video, Category
 
 
@@ -9,6 +9,8 @@ class VideoViewSet(viewsets.ModelViewSet):
     """Listing all videos"""
     queryset = Video.objects.all()
     serializer_class = VideoSerializer
+    filter_backends = [filters.SearchFilter]
+    search_fields = ['title', 'description']
 
     def retrieve(self, request, *args, **kwargs):
         try:
@@ -45,3 +47,13 @@ class CategoryViewSet(viewsets.ModelViewSet):
         except:
             return Response(status=status.HTTP_404_NOT_FOUND, data={"detail": "Category not found"})
         return Response(status=status.HTTP_200_OK, data={"detail": "Category successfuly deleted"})
+
+
+class ListVideosByCategory(generics.ListAPIView):
+    """Listing videos from a category"""
+
+    def get_queryset(self):
+        queryset = Video.objects.filter(category_id=self.kwargs['pk'])
+        return queryset
+
+    serializer_class = ListVideosByCategorySerializer
