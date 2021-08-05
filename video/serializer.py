@@ -33,3 +33,9 @@ class ListVideosByCategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Video
         fields = ['id', 'category_id', 'title', 'description', 'url']
+
+
+class ListVideoFreeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Video
+        fields = ['id', 'category_id', 'title', 'description', 'url']

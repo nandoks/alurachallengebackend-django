@@ -2,7 +2,8 @@ from rest_framework import viewsets, status, generics, filters
 from rest_framework.response import Response
 from rest_framework.authentication import BasicAuthentication
 from rest_framework.permissions import IsAuthenticated
-from video.serializer import VideoSerializer, CategorySerializer, ListVideosByCategorySerializer
+from video.serializer import VideoSerializer, CategorySerializer, ListVideosByCategorySerializer, \
+    ListVideoFreeSerializer
 from video.models import Video, Category
 
 
@@ -55,3 +56,11 @@ class ListVideosByCategory(generics.ListAPIView):
     serializer_class = ListVideosByCategorySerializer
     authentication_classes = [BasicAuthentication]
     permission_classes = [IsAuthenticated]
+
+
+class ListVideosFree(generics.ListAPIView):
+    """Listing a free version of the API returns only 10 videos"""
+    queryset = Video.objects.all()
+    serializer_class = ListVideoFreeSerializer
+    filter_backends = [filters.SearchFilter]
+    search_fields = ['title', 'description']
