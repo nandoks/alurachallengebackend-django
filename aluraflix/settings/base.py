@@ -12,7 +12,7 @@ env = environ.Env()
 
 environ.Env.read_env()
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get('SECRET_KEY')
+SECRET_KEY = env('SECRET_KEY')
 
 ALLOWED_HOSTS = env('ALLOWED_HOSTS').split(',')
 
