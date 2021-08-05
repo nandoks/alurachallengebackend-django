@@ -6,6 +6,7 @@
       "title": "API com Django 3: Django Rest Framework",
       "description": "Curso de primeiros passos com API REST em django",
       "url": "https://cursos.alura.com.br/course/api-django-3-rest-framework",
+      "category": 1
     }
   },
   {
@@ -15,6 +16,7 @@
       "title": "React: Ciclo de vida dos componentes",
       "description": "Curso intermerdiário de React",
       "url": "https://cursos.alura.com.br/course/react-ciclo-de-vida",
+      "category": 1
     }
   },
   {
@@ -23,7 +25,38 @@
     "fields": {
       "title": "Agilidade e TDD: Um dia no desenvolvimento de software",
       "description": "Curso sobre agilidade e TDD, o dia a dia do desenvolvedor de software",
-      "url": "https://cursos.alura.com.br/course/agilidade-tdd-desenvolvimento-software"
+      "url": "https://cursos.alura.com.br/course/agilidade-tdd-desenvolvimento-software",
+      "category": 1
+    }
+  },
+  {
+    "model": "video.video",
+    "pk": 4,
+    "fields": {
+      "title": "Michele James",
+      "description": "Professor happy safe continue music. Even us social leave risk institution bring.\nLikely seek somebody. Quality computer finish. Someone military all way program cold.",
+      "url": "http://alura.com.br",
+      "category": 1
+    }
+  },
+  {
+    "model": "video.video",
+    "pk": 5,
+    "fields": {
+      "title": "Russell Dickerson",
+      "description": "Officer cultural long give after. Environmental eat matter also concern hundred. Raise important assume culture TV above music song. Until process indicate specific.",
+      "url": "http://alura.com.br",
+      "category": 1
+    }
+  },
+  {
+    "model": "video.video",
+    "pk": 6,
+    "fields": {
+      "title": "Marissa Knight",
+      "description": "Box mean citizen parent certain study wife. Window concern ground right operation account.\nFoot land range begin force. Require attorney huge already.",
+      "url": "http://alura.com.br",
+      "category": 1
     }
   }
 ]
