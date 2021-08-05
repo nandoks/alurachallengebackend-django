@@ -1,6 +1,7 @@
 from rest_framework import viewsets, status, generics, filters
 from rest_framework.response import Response
-
+from rest_framework.authentication import BasicAuthentication
+from rest_framework.permissions import IsAuthenticated
 from video.serializer import VideoSerializer, CategorySerializer, ListVideosByCategorySerializer
 from video.models import Video, Category
 
@@ -11,7 +12,8 @@ class VideoViewSet(viewsets.ModelViewSet):
     serializer_class = VideoSerializer
     filter_backends = [filters.SearchFilter]
     search_fields = ['title', 'description']
-
+    authentication_classes = [BasicAuthentication]
+    permission_classes = [IsAuthenticated]
 
     def destroy(self, request, *args, **kwargs):
         """Deleting a video"""
@@ -27,6 +29,8 @@ class CategoryViewSet(viewsets.ModelViewSet):
     """Listing all categories"""
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
+    authentication_classes = [BasicAuthentication]
+    permission_classes = [IsAuthenticated]
 
     def destroy(self, request, *args, **kwargs):
         """Deleting a category"""
@@ -49,3 +53,5 @@ class ListVideosByCategory(generics.ListAPIView):
         return queryset
 
     serializer_class = ListVideosByCategorySerializer
+    authentication_classes = [BasicAuthentication]
+    permission_classes = [IsAuthenticated]
