@@ -12,11 +12,6 @@ class VideoViewSet(viewsets.ModelViewSet):
     filter_backends = [filters.SearchFilter]
     search_fields = ['title', 'description']
 
-    def retrieve(self, request, *args, **kwargs):
-        try:
-            return Video.objects.get(pk=self.kwargs['pk'])
-        except:
-            return Response(status=status.HTTP_404_NOT_FOUND, data={'detail': 'Video not found'})
 
     def destroy(self, request, *args, **kwargs):
         """Deleting a video"""
@@ -33,16 +28,13 @@ class CategoryViewSet(viewsets.ModelViewSet):
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
 
-    def retrieve(self, request, *args, **kwargs):
-        try:
-            return Category.objects.get(pk=self.kwargs['pk'])
-        except:
-            return Response(status=status.HTTP_404_NOT_FOUND, data={'detail': 'Category not found'})
-
     def destroy(self, request, *args, **kwargs):
-        """Deleting a video"""
+        """Deleting a category"""
+
         try:
             instance = self.get_object()
+            # if instance.id == 1:
+            #     return Response(status=status.HTTP_403_FORBIDDEN, data={"detail": "Category with id 1 cannot be deleted"})
             self.perform_destroy(instance)
         except:
             return Response(status=status.HTTP_404_NOT_FOUND, data={"detail": "Category not found"})
