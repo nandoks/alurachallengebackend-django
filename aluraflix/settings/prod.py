@@ -6,4 +6,4 @@ SECRET_KEY = os.environ["DJANGO_SECRET_KEY"]
 
 DEBUG = False
 
-ALLOWED_HOSTS = ['localhost', ]
+ALLOWED_HOSTS = ['localhost','http://nandoks-api-alurachallengeback.herokuapp.com/',]
