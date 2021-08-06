@@ -6,5 +6,37 @@
       "title": "LIVRE",
       "color": "#959595"
     }
+  },
+  {
+    "model": "video.category",
+    "pk": 2,
+    "fields": {
+      "title": "BANCO DE DADOS",
+      "color": "#ff1155"
+    }
+  },
+  {
+    "model": "video.category",
+    "pk": 3,
+    "fields": {
+      "title": "JAVA",
+      "color": "#151515"
+    }
+  },
+  {
+    "model": "video.category",
+    "pk": 4,
+    "fields": {
+      "title": "DJANGO",
+      "color": "#11aa44"
+    }
+  },
+  {
+    "model": "video.category",
+    "pk": 5,
+    "fields": {
+      "title": "API",
+      "color": "#99ff44"
+    }
   }
 ]

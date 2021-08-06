@@ -10,7 +10,7 @@ router.register(r'categories', CategoryViewSet, basename='Categories')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('videos/free/', ListVideosFree.as_view()),
     path('', include(router.urls)),
     path('category/<int:pk>/videos/', ListVideosByCategory.as_view()),
-    path(r'videos/free/', ListVideosFree.as_view())
 ]

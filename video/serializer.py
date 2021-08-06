@@ -8,7 +8,7 @@ from video.validators.category import validate_hexadecimal
 class VideoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Video
-        fields = ['id', 'category_id', 'title', 'description', 'url']
+        fields = ['id', 'category', 'title', 'description', 'url']
 
     def validate(self, data):
         if not validate_title(data['title']):

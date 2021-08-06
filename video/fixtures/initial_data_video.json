@@ -6,7 +6,7 @@
       "title": "API com Django 3: Django Rest Framework",
       "description": "Curso de primeiros passos com API REST em django",
       "url": "https://cursos.alura.com.br/course/api-django-3-rest-framework",
-      "category": 1
+      "category": 4
     }
   },
   {
@@ -33,28 +33,68 @@
     "model": "video.video",
     "pk": 4,
     "fields": {
-      "title": "Michele James",
-      "description": "Professor happy safe continue music. Even us social leave risk institution bring.\nLikely seek somebody. Quality computer finish. Someone military all way program cold.",
+      "title": "Introduçao ao MYSQL",
+      "description": "Introdução à bancos de dados com MYSQL.",
       "url": "http://alura.com.br",
-      "category": 1
+      "category": 2
     }
   },
   {
     "model": "video.video",
     "pk": 5,
     "fields": {
-      "title": "Russell Dickerson",
-      "description": "Officer cultural long give after. Environmental eat matter also concern hundred. Raise important assume culture TV above music song. Until process indicate specific.",
+      "title": "Java OO: Introdução à Orientação a Objetos",
+      "description": "Domine o paradigma de programação mais usado no mercado de trabalho,Entenda o que são referências e objetos,Use atributos, métodos da instancia e da classe,Define objetos através de construtores,Aprenda sobre encapsulamento",
       "url": "http://alura.com.br",
-      "category": 1
+      "category": 3
     }
   },
   {
     "model": "video.video",
     "pk": 6,
     "fields": {
-      "title": "Marissa Knight",
+      "title": "Java e java.util: Coleções, Wrappers e Lambda expressions",
+      "description": "Aprenda os fundamentos das coleções Java.,Explore o poder e flexibilidade das listas.,Saiba trabalhar com ArrayList, LinkdedList ou Vector.,Entenda como funcionam as lambda expressions.,Manipule e ordene as coleções.",
+      "url": "http://alura.com.br",
+      "category": 3
+    }
+  },
+  {
+    "model": "video.video",
+    "pk": 7,
+    "fields": {
+      "title": "PostgreSQL: Primeiros passos com SQL",
+      "description": "Crie a estrutura de uma tabela com CREATE TABLE,Realize consultas com SELECT,Adicione dados no banco com o INSERT,Atualize e apague dados com UPDATE e DELETE,Filtre os seus registros com WHERE,Ordene os seus dados com o ORDER BY,Junte registros de tabelas com JOIN",
+      "url": "http://alura.com.br",
+      "category": 2
+    }
+  },
+  {
+    "model": "video.video",
+    "pk": 8,
+    "fields": {
+      "title": "Organização de equipes ágeis: Os papéis existentes em uma equipe",
       "description": "Box mean citizen parent certain study wife. Window concern ground right operation account.\nFoot land range begin force. Require attorney huge already.",
+      "url": "http://alura.com.br",
+      "category": 1
+    }
+  },
+  {
+    "model": "video.video",
+    "pk": 9,
+    "fields": {
+      "title": "Scrum: Agilidade em seu projeto",
+      "description": "Aprenda o processo ágil mais popular do mercado.,Aplique esse processo em seu projeto,Veja como práticar uma Retrospectiva,Melhore o desempenho do seu time,Entregas mais rápidas e transparentes",
+      "url": "http://alura.com.br",
+      "category": 1
+    }
+  },
+  {
+    "model": "video.video",
+    "pk": 10,
+    "fields": {
+      "title": "Kanban parte 1: Fundamentos Essenciais",
+      "description": "Faça este curso e aprenda a mapear, gerenciar e criticar fluxos de trabalho,Entenda como montar um quadro Kanban aplicando cartões,Aprenda a limitar o trabalho em progresso (WIP),Descubra como lidar com trabalhos urgentes x prioritárias no seu dia-a-dia,Conheça quais são e como aplicar as Métricas do Kanban",
       "url": "http://alura.com.br",
       "category": 1
     }

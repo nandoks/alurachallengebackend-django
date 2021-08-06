@@ -59,8 +59,7 @@ class ListVideosByCategory(generics.ListAPIView):
 
 
 class ListVideosFree(generics.ListAPIView):
-    """Listing a free version of the API returns only 10 videos"""
-    queryset = Video.objects.all()
+    """Listing a free version of the API returns only 5 videos"""
+    queryset = Video.objects.all().order_by('-id')[:5]
     serializer_class = ListVideoFreeSerializer
-    filter_backends = [filters.SearchFilter]
     search_fields = ['title', 'description']
